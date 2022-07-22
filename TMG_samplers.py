@@ -228,7 +228,7 @@ class TMG(object):
         
         if np.isnan(self.samples_current).sum() != 0 and UsePythonIfNan:
             print('C++ returned NaNs. Defaulting to numpy version')
-            self.TMG_rejection_numpy(N, mu, cov, minvals, maxvals)
+            self.TMG_rejection_numpy(N, mu, cov, minvals, maxvals, periodic=periodic)
         return self.samples_current
     
     def TMG_KDGibbs(self, N, mu, cov, minvals, maxvals, x_init=None, burnin = 100, hop = 1, recompile=False, UsePythonIfNan = True):
