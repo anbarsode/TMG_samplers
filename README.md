@@ -11,6 +11,9 @@ Here is a quick summary:
 - For multivariate normal sampling, Kotecha-Djuric-Gibbs method (the way I have implemented it) is not reliable
 - C++ based rejection sampling is the fastest and most reliable method for sampling from a truncated multidimensional gaussian
 
+When using rejection sampling method, it is also possible to draw samples when some of the variables are periodic rather than bounded.
+
+## Usage
 Requirements:
 - Python, Numpy, Scipy
 - C++14
@@ -28,7 +31,7 @@ Running it for the first time may be slow because the program will first compile
 
 Take a look at `testing_TMG_samplers.ipynb` for examples.
 
-References:
+## References:
 * Gibbs Sampling Approach For Generation Of Truncated Multivariate Gaussian Random Variables - Jayesh H. Kotecha and Petar M. Djuric  
 * https://en.wikipedia.org/wiki/Normal_distribution  
 * https://en.wikipedia.org/wiki/Gibbs_sampling  
