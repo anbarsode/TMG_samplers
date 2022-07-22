@@ -2,8 +2,8 @@ import numpy as np
 from scipy.special import erf, erfinv
 import os
 
-Eigen_path = '/home/ankur/My_Projects/eigen-3.4.0'
-TMG_path = '/home/ankur/astrorel/MACHO_GO_Lensing_project/TMG_sampling'
+Eigen_path = '/full/path/to/Eigen'
+TMG_path = '/full/path/to/the/directory/containing/cpp/files'
 
 class TMG(object):
     def __init__(self):
