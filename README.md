@@ -24,6 +24,8 @@ Installation (may write better instructions later):
   * `TMG_path` should point to the directory where all the C++ files are kept (do `$ pwd` from inside the cloned repo)
 - Copy the `TMG_samplers.py` in your current working directory and then you can do `import TMG_samplers as TMG` in your code to start using it
 
+Running it for the first time may be slow because the program will first compile the C++ codes.
+
 Take a look at `testing_TMG_samplers.ipynb` for examples.
 
 References:
