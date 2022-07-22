@@ -7,7 +7,7 @@ A C++ version can do this in 7 seconds!
 
 This repo contains some functions written in python-numpy and C++ that implement rejection sampling as well as the Gibbs sampling technique.
 Here is a quick summary:
-- Numpy based Kotecha-Djuric method is the fastest for sampling from a truncated gaussian
+- Numpy based Kotecha-Djuric method is the fastest for sampling from a truncated Gaussian in 1D
 - For multivariate normal sampling, Kotecha-Djuric-Gibbs method (the way I have implemented it) is not reliable
 - C++ based rejection sampling is the fastest and most reliable method for sampling from a truncated multidimensional gaussian
 
