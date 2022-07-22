@@ -23,6 +23,7 @@ Installation (may write better instructions later):
   * `Eigen_path` should point to the directory `Eigen` (do `$ pwd` from inside the extracted tarball)
   * `TMG_path` should point to the directory where all the C++ files are kept (do `$ pwd` from inside the cloned repo)
 - Copy the `TMG_samplers.py` in your current working directory and then you can do `from TMG_samplers import TMG` in your code to start using it
+- You may need to add the flag `-std=c++11` and compile separately if you get any errors during compilation of the C++ codes
 
 Running it for the first time may be slow because the program will first compile the C++ codes.
 
