@@ -23,6 +23,9 @@ int main(int argc, char **argv)
     for(int i=0; i < Ndim; i++)
         x_max(i) = std::stod(argv[1+1 + Ndim + Ndim*Ndim + Ndim + i]);
     long N = std::stol(argv[1+1 + Ndim + Ndim*Ndim + Ndim + Ndim]);
+    bool periodic[Ndim];
+    for(int i=0; i < Ndim; i++)
+        periodic[i] = std::stod(argv[1+1 + Ndim + Ndim*Ndim + Ndim + Ndim + 1 + i]);
     
     normal_random_variable sample {mu, cov};
     
@@ -36,9 +39,15 @@ int main(int argc, char **argv)
         x_now = sample();
         valid = true;
         for(int j=0; j < Ndim; j++)
-            if(x_now(j) < x_min(j) || x_now(j) > x_max(j)) valid = false;
+            if((periodic[j] == 0) && (x_now(j) < x_min(j) || x_now(j) > x_max(j))) valid = false;
         if(valid)
         {
+            for(int j=0; j < Ndim; j++)
+                if(periodic[j] == 1)
+                {
+                    x_now(j) = fmod(x_now(j), x_max(j) - x_min(j));
+                    if(x_now(j) < 0) x_now(j) += x_max(j) - x_min(j);
+                }
             for(int j=0; j < Ndim; j++)
                 fp << x_now(j) << " ";
             fp << std::endl;
