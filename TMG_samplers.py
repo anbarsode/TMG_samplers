@@ -117,13 +117,20 @@ class TMG(object):
         self.samples_current = self.Gaussian1DCDF_inv(y, mu, sig)
         return self.samples_current
     
-    def TMG_rejection_numpy(self, N, mu, cov, minvals, maxvals, maxrejini = 1000, showprogress=False):
+    def TMG_rejection_numpy(self, N, mu, cov, minvals, maxvals, periodic = None, maxrejini = 1000, showprogress=False):
+        if periodic is not None:
+            nonperiodic = [i for i in range(mu.shape[0]) if i not in periodic]
+        else:
+            periodic = []
+            nonperiodic = range(mu.shape[0])
+        
         x = np.empty((N, mu.shape[0]))
         rej = 0
         i = 0
         while i < N:
             sample = np.random.multivariate_normal(mu, cov)
-            if np.prod((sample >= minvals) & (sample <= maxvals)) != 0:
+            if np.prod((sample[nonperiodic] >= minvals[nonperiodic]) & (sample[nonperiodic] <= maxvals[nonperiodic])) != 0:
+                sample[periodic] = sample[periodic] % (maxvals[periodic] - minvals[periodic])
                 x[i,:] = sample
                 i += 1
             else:
@@ -192,11 +199,18 @@ class TMG(object):
             self.T1DG_KD_numpy(N, mu, sig, minval, maxval)
         return self.samples_current
     
-    def TMG_rejection(self, N, mu, cov, minvals, maxvals, recompile=False, UsePythonIfNan = True):
+    def TMG_rejection(self, N, mu, cov, minvals, maxvals, periodic = None, recompile=False, UsePythonIfNan = True):
         if not os.path.exists('%s/TMG_rejection' % TMG_path) or recompile:
             os.system('g++ -I %s %s/TMG_rejection.cpp -o %s/TMG_rejection' % (Eigen_path, TMG_path, TMG_path))
 
         Ndim = mu.shape[0]
+        if periodic is not None:
+            periodic_bool = np.arange(Ndim) * 0
+            periodic_bool[periodic] = 1
+            
+        else:
+            periodic_bool = np.arange(Ndim) * 0
+        
         ip_str = '%d ' % Ndim
         for i in range(Ndim): ip_str += '%e ' % mu[i]
         for i in range(Ndim):
@@ -204,7 +218,8 @@ class TMG(object):
                 ip_str += '%e ' % cov[i,j]
         for i in range(Ndim): ip_str += '%e ' % minvals[i]
         for i in range(Ndim): ip_str += '%e ' % maxvals[i]
-        ip_str += '%d' % N
+        ip_str += '%d ' % N
+        for i in range(Ndim): ip_str += '%d ' % periodic_bool[i]
 
         os.system('%s/TMG_rejection %s > %s/TMGacc.temp' % (TMG_path, ip_str, TMG_path))
         self.acceptance = float(open('%s/TMGacc.temp' % TMG_path,'r').read())
