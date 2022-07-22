@@ -170,7 +170,7 @@ class TMG(object):
         ip_str = '%e %e %e %e %d' % (mu, sig, minval, maxval, N)
         os.system('%s/T1DG_rejection %s > %s/TMGacc.temp' % (TMG_path, ip_str, TMG_path))
         self.acceptance = float(open('%s/TMGacc.temp' % TMG_path,'r').read())
-        self.fname_current = '%s/T1DG_rejection.samples' % TMG_path
+        self.fname_current = './T1DG_rejection.samples'
         self.samples_current = np.loadtxt(self.fname_current)
         
         if np.isnan(self.samples_current).sum() != 0 and UsePythonIfNan:
@@ -184,7 +184,7 @@ class TMG(object):
         
         ip_str = '%e %e %e %e %d' % (mu, sig, minval, maxval, N)
         os.system('%s/T1DG_KD %s' % (TMG_path, ip_str))
-        self.fname_current = '%s/T1DG_KD.samples' % TMG_path
+        self.fname_current = './T1DG_KD.samples'
         self.samples_current = np.loadtxt(self.fname_current)
         
         if np.isnan(self.samples_current).sum() != 0 and UsePythonIfNan:
@@ -208,7 +208,7 @@ class TMG(object):
 
         os.system('%s/TMG_rejection %s > %s/TMGacc.temp' % (TMG_path, ip_str, TMG_path))
         self.acceptance = float(open('%s/TMGacc.temp' % TMG_path,'r').read())
-        self.fname_current = '%s/TMG_rejection.samples' % TMG_path
+        self.fname_current = './TMG_rejection.samples'
         self.samples_current = np.loadtxt(self.fname_current)
         
         if np.isnan(self.samples_current).sum() != 0 and UsePythonIfNan:
@@ -238,7 +238,7 @@ class TMG(object):
         ip_str += '%d' % hop
         
         os.system('%s/TMG_KDGibbs %s' % (TMG_path, ip_str))
-        self.fname_current = '%s/TMG_KDGibbs.samples' % TMG_path
+        self.fname_current = './TMG_KDGibbs.samples'
         self.samples_current = np.loadtxt(self.fname_current)
         
         if np.isnan(self.samples_current).sum() != 0 and UsePythonIfNan:
