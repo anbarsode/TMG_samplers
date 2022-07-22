@@ -13,7 +13,7 @@ Here is a quick summary:
 
 Requirements:
 - Python, Numpy, Scipy
-- C++
+- C++17
 - Eigen <https://eigen.tuxfamily.org/index.php?title=Main_Page>
 
 Installation (may write better instructions later):
